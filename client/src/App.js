@@ -21,22 +21,25 @@ function App() {
             .then((data) => setMessage(data.message));
     }, []);
 
-    function handleClick(e) {
-        e.preventDefault();
+    function getTopTracks(time_range) {
+        // e.preventDefault();
 
-        fetch('http://localhost:8000/getData')
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:8000/getTopTracks',
+            params: { timeRange: time_range },
+        };
+        axios
+            .request(options)
             .then((res) => {
-                if (res.ok) {
-                    return res.json();
+                if (res.data.hasOwnProperty('items')) {
+                    setTopData(res.data.items);
+                    console.log('DATA: ', res.data.items);
                 }
-                throw new Error('Something went wrong');
             })
-            .then((data) => {
-                console.log(data);
-                setTopData(data.data);
-                console.log('topdata: ', topData);
-            })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     return (
@@ -54,21 +57,13 @@ function App() {
                             element={
                                 <TopLists
                                     topTracks={topData}
-                                    handleClick={handleClick}
+                                    handleClick={getTopTracks}
                                     errorMsg={errorMessage}
                                 />
                             }
                         />
                     </Routes>
                 </main>
-                {/* <Navbar />
-                <div class="container">
-                    <p>{message}</p>
-                    <TopTrackList topTracks={topData} />
-                    <button onClick={handleClick}>
-                        Click to get data
-                    </button>
-                </div> */}
             </div>
         </BrowserRouter>
     );

@@ -95,10 +95,11 @@ app.get('/callback', async (req, res) => {
  *  Get the user's 50 top tracks.
  *  More info: https://developer.spotify.com/console/get-current-user-top-artists-and-tracks/
  */
-app.get('/getData', async (req, res) => {
+app.get('/getTopTracks', async (req, res) => {
+    const timeRange = req.query.timeRange;
     try {
         const response = await axios.get(
-            'https://api.spotify.com/v1/me/top/tracks?limit=50',
+            `https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`,
             {
                 headers: {
                     Authorization: `Bearer ${access_token}`,
@@ -106,7 +107,8 @@ app.get('/getData', async (req, res) => {
             }
         );
         console.log(response.data.items);
-        res.json({ data: response.data.items });
+        // res.json({ data: response.data.items });
+        res.json(response.data);
     } catch (error) {
         if (error.response) {
             console.log('response', error.response);
