@@ -16,11 +16,13 @@ export default function TopTrackList(props) {
         <div>
             <h2>Your Top 50</h2>
 
-            {tracks}
-
             <button onClick={props.handleClick}>
                 Click to get data
             </button>
+
+            <div>{props.errorMsg}</div>
+
+            {tracks}
         </div>
     );
 }

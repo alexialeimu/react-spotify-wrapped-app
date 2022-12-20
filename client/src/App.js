@@ -13,6 +13,7 @@ import TopLists from './pages/TopLists';
 function App() {
     const [message, setMessage] = useState('');
     const [topData, setTopData] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         fetch('http://localhost:8000/message')
@@ -24,11 +25,18 @@ function App() {
         e.preventDefault();
 
         fetch('http://localhost:8000/getData')
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error('Something went wrong');
+            })
             .then((data) => {
-                console.log(data.data);
+                console.log(data);
                 setTopData(data.data);
-            });
+                console.log('topdata: ', topData);
+            })
+            .catch((err) => console.log(err));
     }
 
     return (
@@ -47,6 +55,7 @@ function App() {
                                 <TopLists
                                     topTracks={topData}
                                     handleClick={handleClick}
+                                    errorMsg={errorMessage}
                                 />
                             }
                         />

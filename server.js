@@ -64,37 +64,30 @@ app.get('/login', function (req, res) {
  *  The page user is redirected to after accepting data use.
  */
 app.get('/callback', async (req, res) => {
-    res.send(
-        `Logged in successfully! <a href="http://localhost:3000/">Go back to frontpage.</a>`
+    const { code } = req.query;
+    const grant_type = 'authorization_code';
+
+    const basicHeader = Buffer.from(
+        `${client_id}:${client_secret}`
+    ).toString('base64');
+    const { data } = await axios.post(
+        'https://accounts.spotify.com/api/token',
+        querystring.stringify({
+            grant_type,
+            code,
+            redirect_uri,
+        }),
+        {
+            headers: {
+                Authorization: `Basic ${basicHeader}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        }
     );
 
-    const spotifyResponse = await axios
-        .post(
-            'https://accounts.spotify.com/api/token',
-            querystring.stringify({
-                grant_type: 'authorization_code',
-                code: req.query.code,
-                redirect_uri: redirect_uri,
-            }),
-            {
-                headers: {
-                    Authorization:
-                        'Basic ' +
-                        new Buffer.from(
-                            client_id + ':' + client_secret
-                        ).toString('base64'),
-                    'Content-Type':
-                        'application/x-www-form-urlencoded',
-                },
-            }
-        )
-        .catch(function (error) {
-            console.log(error.toJSON());
-        });
+    access_token = data.access_token;
 
-    access_token = spotifyResponse.data.access_token;
-
-    console.log('ACCESS TOKEN:', spotifyResponse);
+    return res.redirect('http://localhost:3000/');
 });
 
 /**
@@ -112,6 +105,7 @@ app.get('/getData', async (req, res) => {
                 },
             }
         );
+        console.log(response.data.items);
         res.json({ data: response.data.items });
     } catch (error) {
         if (error.response) {

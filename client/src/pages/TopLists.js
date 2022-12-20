@@ -6,6 +6,7 @@ export default function TopLists(props) {
             <h2>Top Lists</h2>
             <p>
                 <TopTrackList
+                    errorMsg={props.errorMsg}
                     topTracks={props.topTracks}
                     handleClick={props.handleClick}
                 />
