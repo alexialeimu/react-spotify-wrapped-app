@@ -9,7 +9,8 @@ export default function Navbar() {
                     <h1>Spottariappi</h1>
                     <div class="nav_items">
                         <NavLink to="/">Home</NavLink>
-                        <NavLink to="toplists">Top Lists</NavLink>
+                        <NavLink to="toptracks">Top Tracks</NavLink>
+                        <NavLink to="topartists">Top Artists</NavLink>
                         <a href="http://localhost:8000/login">
                             Sign in
                         </a>

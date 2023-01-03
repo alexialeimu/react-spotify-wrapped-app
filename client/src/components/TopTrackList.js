@@ -16,19 +16,31 @@ export default function TopTrackList(props) {
         <div>
             <h2>Your Top 50</h2>
 
-            <button onClick={() => props.handleClick('short_term')}>
+            <button
+                onClick={() =>
+                    props.handleClick('short_term', 'tracks')
+                }
+            >
                 Get Top 50 (4 weeks)
             </button>
-            <button onClick={() => props.handleClick('medium_term')}>
+            <button
+                onClick={() =>
+                    props.handleClick('medium_term', 'tracks')
+                }
+            >
                 Get Top 50 (6 months)
             </button>
-            <button onClick={() => props.handleClick('long_term')}>
+            <button
+                onClick={() =>
+                    props.handleClick('long_term', 'tracks')
+                }
+            >
                 Get Top 50 (1 year)
             </button>
 
             <div>{props.errorMsg}</div>
 
-            {tracks}
+            <div class="top-track-list">{tracks}</div>
         </div>
     );
 }

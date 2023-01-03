@@ -1,8 +1,8 @@
 import TopTrackList from '../components/TopTrackList';
 
-export default function TopLists(props) {
+export default function TopTracks(props) {
     return (
-        <div className="top_lists">
+        <div className="top_tracks">
             <h2>Top Lists</h2>
             <p>
                 <TopTrackList

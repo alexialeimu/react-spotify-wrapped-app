@@ -1,10 +1,7 @@
 import React from 'react';
 
-export default function Track(props) {
-    const artists = props.artists
-        .map((artist) => artist.name)
-        .join(', ');
-    const imageUrl = props.album_imgs[2].url;
+export default function Artist(props) {
+    const imageUrl = props.artist_imgs[2].url;
 
     return (
         <div class="track-element">
@@ -12,7 +9,7 @@ export default function Track(props) {
             <img src={imageUrl} alt="album_cover" />
             <div class="track-main-info">
                 <span class="track-info__name">{props.track}</span>
-                <span class="track-info__artist">{artists}</span>
+                <span class="track-info__artist">{props.name}</span>
             </div>
         </div>
     );

@@ -7,13 +7,16 @@ import './App.css';
 
 // pages
 import Home from './pages/Home';
-import About from './pages/TopLists';
-import TopLists from './pages/TopLists';
+// import About from './pages/TopLists';
+import TopTracks from './pages/TopTracks';
+import TopArtists from './pages/TopArtists';
 
 function App() {
     const [message, setMessage] = useState('');
     const [topData, setTopData] = useState([]);
+    const [topArtistData, setTopArtistData] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:8000/message')
@@ -21,19 +24,23 @@ function App() {
             .then((data) => setMessage(data.message));
     }, []);
 
-    function getTopTracks(time_range) {
+    function getTopTracks(time_range, type) {
         // e.preventDefault();
 
         const options = {
             method: 'GET',
             url: 'http://localhost:8000/getTopTracks',
-            params: { timeRange: time_range },
+            params: { timeRange: time_range, type: type },
         };
         axios
             .request(options)
             .then((res) => {
                 if (res.data.hasOwnProperty('items')) {
-                    setTopData(res.data.items);
+                    if (type === 'artists') {
+                        setTopArtistData(res.data.items);
+                    } else {
+                        setTopData(res.data.items);
+                    }
                     console.log('DATA: ', res.data.items);
                 }
             })
@@ -44,7 +51,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <div className="App">
+            <div className="App app-container">
                 <Navbar />
                 <main class="container">
                     <Routes>
@@ -53,10 +60,20 @@ function App() {
                             element={<Home message={message} />}
                         />
                         <Route
-                            path="toplists"
+                            path="toptracks"
                             element={
-                                <TopLists
+                                <TopTracks
                                     topTracks={topData}
+                                    handleClick={getTopTracks}
+                                    errorMsg={errorMessage}
+                                />
+                            }
+                        />
+                        <Route
+                            path="topartists"
+                            element={
+                                <TopArtists
+                                    topArtists={topArtistData}
                                     handleClick={getTopTracks}
                                     errorMsg={errorMessage}
                                 />

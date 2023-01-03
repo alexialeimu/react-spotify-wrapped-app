@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(37, 37, 37);
+  color: white;
 }
 
 code {
@@ -42,4 +44,33 @@ nav .container {
 
 .nav_items a + a {
     margin-left: 20px;
+}
+
+.top-track-list {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 400px;
+    margin: auto;
+}
+.track-element {
+    display: flex;
+    margin: 8px 0;
+    align-items: center;
+}
+.track-element .track-number {
+    margin-right: 8px;
+}
+.track-element img {
+    margin-right: 8px;
+    height: 80px;
+}
+.track-element .track-main-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.track-element .track-info__artist {
+    font-size: 0.8em;
+    color: rgb(175, 175, 175);
 }
