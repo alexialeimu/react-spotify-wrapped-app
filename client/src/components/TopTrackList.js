@@ -1,7 +1,7 @@
 import React from 'react';
 import Track from './Track';
 
-export default function TopTrackList(props) {
+const TopTrackList = (props) => {
     const tracks = props.topTracks.map((track, i) => (
         <Track
             key={i}
@@ -43,4 +43,6 @@ export default function TopTrackList(props) {
             <div class="top-track-list">{tracks}</div>
         </div>
     );
-}
+};
+
+export default TopTrackList;

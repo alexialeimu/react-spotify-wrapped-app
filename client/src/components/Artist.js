@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Artist(props) {
+const Artist = (props) => {
     const imageUrl = props.artist_imgs[2].url;
 
     return (
@@ -13,4 +13,6 @@ export default function Artist(props) {
             </div>
         </div>
     );
-}
+};
+
+export default Artist;

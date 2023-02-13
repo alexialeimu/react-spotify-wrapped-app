@@ -1,7 +1,7 @@
 import React from 'react';
 import Artist from './Artist';
 
-export default function TopArtistList(props) {
+const TopArtistList = (props) => {
     console.log('artist list: ', props.topArtists);
 
     const artists = props.topArtists
@@ -46,4 +46,6 @@ export default function TopArtistList(props) {
             <div class="top-track-list">{artists}</div>
         </div>
     );
-}
+};
+
+export default TopArtistList;

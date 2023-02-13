@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Track(props) {
+const Track = (props) => {
     const artists = props.artists
         .map((artist) => artist.name)
         .join(', ');
@@ -16,4 +16,6 @@ export default function Track(props) {
             </div>
         </div>
     );
-}
+};
+
+export default Track;

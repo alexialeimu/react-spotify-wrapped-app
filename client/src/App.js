@@ -24,9 +24,7 @@ function App() {
             .then((data) => setMessage(data.message));
     }, []);
 
-    function getTopTracks(time_range, type) {
-        // e.preventDefault();
-
+    const getTopTracks = (time_range, type) => {
         const options = {
             method: 'GET',
             url: 'http://localhost:8000/getTopTracks',
@@ -47,7 +45,7 @@ function App() {
             .catch((err) => {
                 console.error(err);
             });
-    }
+    };
 
     return (
         <BrowserRouter>
