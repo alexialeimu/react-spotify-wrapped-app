@@ -97,9 +97,10 @@ app.get('/callback', async (req, res) => {
  */
 app.get('/getTopTracks', async (req, res) => {
     const timeRange = req.query.timeRange;
+    const type = req.query.type;
     try {
         const response = await axios.get(
-            `https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`,
+            `https://api.spotify.com/v1/me/top/${type}?limit=50&time_range=${timeRange}`,
             {
                 headers: {
                     Authorization: `Bearer ${access_token}`,
