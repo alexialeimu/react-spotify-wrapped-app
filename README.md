@@ -1,6 +1,6 @@
 # Spotify Wrapped App
 
-An app to fetch personal Spotify data.
+An app to fetch personal Spotify statistics.
 
 ---
 
