@@ -1,15 +1,17 @@
 import React from 'react';
 
-const Artist = (props) => {
-    const imageUrl = props.artist_imgs[2].url;
+const Artist = ({ artist_imgs, track, name }) => {
+    const imageUrl = artist_imgs[2].url;
 
     return (
-        <div class="track-element">
-            <span class="track-number">{props.number + 1}</span>
-            <img src={imageUrl} alt="album_cover" />
-            <div class="track-main-info">
-                <span class="track-info__name">{props.track}</span>
-                <span class="track-info__artist">{props.name}</span>
+        <div className="">
+            <img
+                src={imageUrl}
+                alt="artist cover"
+                className="w-40 rounded-full"
+            />
+            <div>
+                <p className="text-sm mt-2">{name}</p>
             </div>
         </div>
     );

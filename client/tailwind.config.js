@@ -8,6 +8,10 @@ module.exports = {
             lg: '976px',
             xl: '1440px',
         },
+        // fontFamily: {
+        //     sans: ['Poppins', 'ui-sans-serif'],
+        //     serif: ['Libre Baskerville', 'ui-serif'],
+        // },
         extend: {
             colors: {
                 black: '#191414',

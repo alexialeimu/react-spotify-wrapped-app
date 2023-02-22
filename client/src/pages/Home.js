@@ -1,9 +1,9 @@
-export default function Home(props) {
+export default function Home({ user, message }) {
     return (
         <div className="home">
-            <h2>Welcome</h2>
+            <h2>Welcome {user ? user.display_name : ''}!</h2>
             <p>
-                <p>{props.message}</p>
+                <p>{message}</p>
             </p>
         </div>
     );

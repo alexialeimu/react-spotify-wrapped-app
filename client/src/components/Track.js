@@ -4,15 +4,13 @@ const Track = (props) => {
     const artists = props.artists
         .map((artist) => artist.name)
         .join(', ');
-    const imageUrl = props.album_imgs[2].url;
+    const imageUrl = props.album_imgs[0].url;
 
     return (
-        <div class="track-element">
-            <span class="track-number">{props.number + 1}</span>
+        <div>
             <img src={imageUrl} alt="album_cover" />
-            <div class="track-main-info">
-                <span class="track-info__name">{props.track}</span>
-                <span class="track-info__artist">{artists}</span>
+            <div>
+                <p class="text-sm mt-2">{props.track}</p>
             </div>
         </div>
     );

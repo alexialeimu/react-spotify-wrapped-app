@@ -2,33 +2,14 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-    const [navToggled, setNavToggled] = React.useState(false);
-
     return (
         <>
-            <nav>
-                <div className="navbar">
-                    <h1>Spottariappi</h1>
-                    <div class="nav_items">
+            <nav className="py-4">
+                <div className="navbar layout flex items-center justify-between">
+                    <div className="font-bold">Spottariappi</div>
+                    <div className="nav_items space-x-8">
                         <NavLink to="/">Home</NavLink>
-                        <NavLink to="toptracks">Top Tracks</NavLink>
-                        <NavLink to="topartists">Top Artists</NavLink>
-                        <a href="http://localhost:8000/login">
-                            Sign in
-                        </a>
-                    </div>
-                    <div id="menu-btn" class="hamburger">
-                        <span class="hamburger-top"></span>
-                        <span class="hamburger-middle"></span>
-                        <span class="hamburger-bottom"></span>
-                    </div>
-                </div>
-                <div className="mobile-menu">
-                    <div id="menu">
-                        {/* TO-DO */}
-                        <NavLink to="/">Home</NavLink>
-                        <NavLink to="toptracks">Top Tracks</NavLink>
-                        <NavLink to="topartists">Top Artists</NavLink>
+                        <NavLink to="stats">My Stats</NavLink>
                         <a href="http://localhost:8000/login">
                             Sign in
                         </a>

@@ -20,9 +20,28 @@ let client_id = process.env.CLIENT_ID;
 let client_secret = process.env.CLIENT_SECRET;
 let redirect_uri = process.env.REDIRECT_URI;
 let access_token = '';
+let user;
 
 app.get('/message', (req, res) => {
     res.json({ message: 'Hello from server!' });
+});
+
+app.get('/stats/user', async (req, res) => {
+    try {
+        const response = await axios.get(
+            `https://api.spotify.com/v1/me`,
+            {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            }
+        );
+        console.log(response.data);
+        user = response.data;
+    } catch (err) {
+        console.error(err.message);
+    }
+    res.json({ user: user });
 });
 
 // Generates a random string containing numbers and letters
@@ -45,7 +64,7 @@ var generateRandomString = function (length) {
  */
 app.get('/login', function (req, res) {
     var state = generateRandomString(16);
-    var scope = 'user-top-read';
+    var scope = 'user-top-read user-read-private';
 
     res.redirect(
         'https://accounts.spotify.com/authorize?' +
@@ -91,16 +110,17 @@ app.get('/callback', async (req, res) => {
 });
 
 /**
- *  Example API request.
- *  Get the user's 50 top tracks.
+ *  Get top list.
  *  More info: https://developer.spotify.com/console/get-current-user-top-artists-and-tracks/
  */
-app.get('/getTopTracks', async (req, res) => {
+app.get('/stats/top', async (req, res) => {
     const timeRange = req.query.timeRange;
     const type = req.query.type;
+    const amount = req.query.amount;
+
     try {
         const response = await axios.get(
-            `https://api.spotify.com/v1/me/top/${type}?limit=50&time_range=${timeRange}`,
+            `https://api.spotify.com/v1/me/top/${type}?limit=${amount}&time_range=${timeRange}`,
             {
                 headers: {
                     Authorization: `Bearer ${access_token}`,
