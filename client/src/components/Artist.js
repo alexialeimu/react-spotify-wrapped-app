@@ -8,7 +8,7 @@ const Artist = ({ artist_imgs, track, name }) => {
             <img
                 src={imageUrl}
                 alt="artist cover"
-                className="w-40 rounded-full"
+                className="w-40 h-40 rounded-full"
             />
             <div>
                 <p className="text-sm mt-2">{name}</p>

@@ -2,15 +2,17 @@ import React from 'react';
 import Track from './Track';
 
 const TopTrackList = ({ topTrackData }) => {
-    const tracks = topTrackData.map((track, i) => (
-        <Track
-            key={i}
-            number={i}
-            track={track.name}
-            artists={track.artists}
-            album_imgs={track.album.images}
-        />
-    ));
+    const tracks = topTrackData
+        ? topTrackData.map((track, i) => (
+              <Track
+                  key={i}
+                  number={i}
+                  track={track.name}
+                  artists={track.artists}
+                  album_imgs={track.album.images}
+              />
+          ))
+        : '';
 
     return (
         <div className="space-y-8">
