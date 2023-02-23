@@ -22,6 +22,12 @@ let redirect_uri = process.env.REDIRECT_URI;
 let access_token = '';
 let user;
 
+/*
+ * https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+ */
+let scope =
+    'user-top-read user-read-private user-read-recently-played';
+
 // Generates a random string containing numbers and letters
 var generateRandomString = function (length) {
     var text = '';
@@ -42,7 +48,6 @@ var generateRandomString = function (length) {
  */
 app.get('/login', function (req, res) {
     var state = generateRandomString(16);
-    var scope = 'user-top-read user-read-private';
 
     res.redirect(
         'https://accounts.spotify.com/authorize?' +
@@ -108,7 +113,7 @@ app.get('/user', async (req, res) => {
                 },
             }
         );
-        console.log(response.data);
+        // console.log(response.data);
         user = response.data;
     } catch (err) {
         console.error(err.message);
@@ -134,7 +139,7 @@ app.get('/stats/top', async (req, res) => {
                 },
             }
         );
-        console.log(response.data.items);
+        // console.log(response.data.items);
         // res.json({ data: response.data.items });
         res.json(response.data);
     } catch (error) {
@@ -145,6 +150,28 @@ app.get('/stats/top', async (req, res) => {
         } else {
             console.log('else', error.message);
         }
+    }
+});
+
+/**
+ *  Get recently played tracks
+ *  More info: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
+ */
+app.get('/stats/recently-played', async (req, res) => {
+    try {
+        const timeStamp = Math.floor(Date.now());
+        const limit = '10';
+        const response = await axios.get(
+            `https://api.spotify.com/v1/me/player/recently-played?before=${timeStamp}&limit=${limit}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            }
+        );
+        res.json(response.data);
+    } catch (error) {
+        console.log('ERROR! ', error);
     }
 });
 

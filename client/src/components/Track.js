@@ -14,7 +14,7 @@ const Track = (props) => {
                 className="w-40 h-40"
             />
             <div>
-                <p class="text-sm mt-2">{props.track}</p>
+                <p className="text-sm mt-2">{props.track}</p>
             </div>
         </div>
     );

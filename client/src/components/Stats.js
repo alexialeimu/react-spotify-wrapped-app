@@ -3,6 +3,7 @@ import axios from 'axios';
 import TopArtistList from './TopArtistList';
 import TopTrackList from './TopTrackList';
 import TimeRangeButtons from './TimeRangeButtons';
+import RecentlyPlayedList from './RecentlyPlayedList';
 
 const Stats = () => {
     const [topTrackData, setTopTrackData] = useState([]);
@@ -87,26 +88,30 @@ const Stats = () => {
 
     return (
         <div className="space-y-16">
-            <div className="flex items-center">
-                {userData && (
-                    <div className="order-2 text-start ml-8">
-                        <h1>{userData.display_name}</h1>
-                        <p>{userData.followers.total} followers</p>
-                    </div>
-                )}
-                {userData && (
-                    <img
-                        src={userData.images[0].url}
-                        alt={userData.display_name}
-                        className="order-1 rounded-full w-44"
-                    />
-                )}
-            </div>
-            <div className="space-y-16">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                    {userData && (
+                        <div className="order-2 text-start ml-8">
+                            <h1>{userData.display_name}</h1>
+                            <p className="text-sm font-bold text-gray-400">
+                                {userData.followers.total} followers
+                            </p>
+                        </div>
+                    )}
+                    {userData && (
+                        <img
+                            src={userData.images[0].url}
+                            alt={userData.display_name}
+                            className="order-1 rounded-full w-44"
+                        />
+                    )}
+                </div>
                 <TimeRangeButtons
                     activeButton={timeRange}
                     handleClick={changeTimeRange}
                 />
+            </div>
+            <div className="space-y-16">
                 <TopArtistList
                     topArtistData={
                         topArtistData.filter(
@@ -127,6 +132,7 @@ const Stats = () => {
                         )[0].content
                     }
                 />
+                <RecentlyPlayedList />
             </div>
         </div>
     );
