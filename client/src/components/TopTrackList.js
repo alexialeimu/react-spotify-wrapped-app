@@ -1,7 +1,8 @@
 import React from 'react';
+import Button from './Button';
 import Track from './Track';
 
-const TopTrackList = ({ topTrackData }) => {
+const TopTrackList = ({ topTrackData, handleClick }) => {
     const tracks = topTrackData
         ? topTrackData.map((track, i) => (
               <Track
@@ -21,6 +22,7 @@ const TopTrackList = ({ topTrackData }) => {
             <div className="flex flex-wrap justify-around gap-y-8 gap-x-4">
                 {tracks}
             </div>
+            <Button handleClick={handleClick} />
         </div>
     );
 };

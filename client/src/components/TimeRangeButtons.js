@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TimeRangeButton from './TimeRangeButton';
 
-const TimeRangeButtons = ({ handleClick }) => {
-    const [activeButton, setActiveButton] = useState('medium_term');
+const TimeRangeButtons = ({ defaultButton, handleClick }) => {
+    const [activeButton, setActiveButton] = useState(defaultButton);
     const timeRanges = [
         { code: 'short_term', value: '4 weeks' },
         { code: 'medium_term', value: '6 months' },

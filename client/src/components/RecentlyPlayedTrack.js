@@ -6,7 +6,6 @@ const RecentlyPlayedTrack = ({ trackData }) => {
         .map((artist) => artist.name)
         .join(', ')
         .toString();
-    console.log(artists);
 
     const moment1 = moment(trackData.played_at)
         .startOf('minutes')

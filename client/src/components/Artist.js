@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Artist = ({ artist_imgs, track, name }) => {
+const Artist = ({ artist_imgs, name }) => {
     const imageUrl = artist_imgs[2].url;
 
     return (

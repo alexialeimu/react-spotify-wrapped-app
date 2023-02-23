@@ -6,29 +6,30 @@ import TimeRangeButtons from './TimeRangeButtons';
 import RecentlyPlayedList from './RecentlyPlayedList';
 
 const Stats = () => {
-    const [topTrackData, setTopTrackData] = useState([]);
-    const [topArtistData, setTopArtistData] = useState([]);
+    const [topTrackData, setTopTrackData] = useState([
+        { name: 'short_term', content: [] },
+        { name: 'medium_term', content: [] },
+        { name: 'long_term', content: [] },
+    ]);
+    const [topArtistData, setTopArtistData] = useState([
+        { name: 'short_term', content: [] },
+        { name: 'medium_term', content: [] },
+        { name: 'long_term', content: [] },
+    ]);
     const [userData, setUserData] = useState(null);
     const [timeRange, setTimeRange] = useState('medium_term');
-
-    let topListLength = 6;
+    const [topArtistListLength, setTopArtistListLength] = useState(6);
+    const [topTrackListLength, setTopTrackListLength] = useState(6);
 
     useEffect(() => {
         getUserData();
-        getToplist('medium_term', 'artists', topListLength);
-        getToplist('medium_term', 'tracks', topListLength);
+        getToplist('medium_term', 'artists', topArtistListLength);
+        getToplist('medium_term', 'tracks', topTrackListLength);
     }, []);
 
     useEffect(() => {
-        if (
-            topTrackData.filter((e) => e.name === timeRange)
-                .length === 0 &&
-            topArtistData.filter((e) => e.name === timeRange)
-                .length === 0
-        ) {
-            getToplist(timeRange, 'artists', topListLength);
-            getToplist(timeRange, 'tracks', topListLength);
-        }
+        getToplist(timeRange, 'artists', topArtistListLength);
+        getToplist(timeRange, 'tracks', topTrackListLength);
     }, [timeRange]);
 
     const getUserData = () => {
@@ -56,23 +57,33 @@ const Stats = () => {
             .request(options)
             .then((res) => {
                 if (res.data.hasOwnProperty('items')) {
+                    const newObject = {
+                        name: time_range,
+                        content: res.data.items,
+                    };
+                    // console.log('newObject: ', newObject);
+
                     if (type === 'artists') {
-                        // setTopArtistData(res.data.items);
-                        const newArtistObject = {
-                            name: time_range,
-                            content: res.data.items,
-                        };
                         setTopArtistData(
-                            topArtistData.concat(newArtistObject)
+                            topArtistData.map((item) => {
+                                if (item.name === newObject.name) {
+                                    return {
+                                        ...item,
+                                        content: newObject.content,
+                                    };
+                                } else return item;
+                            })
                         );
                     } else {
-                        // setTopTrackData(res.data.items);
-                        const newTrackObject = {
-                            name: time_range,
-                            content: res.data.items,
-                        };
                         setTopTrackData(
-                            topTrackData.concat(newTrackObject)
+                            topTrackData.map((item) => {
+                                if (item.name === newObject.name) {
+                                    return {
+                                        ...item,
+                                        content: newObject.content,
+                                    };
+                                } else return item;
+                            })
                         );
                     }
                 }
@@ -84,6 +95,16 @@ const Stats = () => {
 
     const changeTimeRange = (time_range) => {
         setTimeRange(time_range);
+    };
+
+    const showMore = (type) => {
+        if (type === 'artists') {
+            setTopArtistListLength(24);
+            getToplist(timeRange, type, 24);
+        } else {
+            setTopTrackListLength(24);
+            getToplist(timeRange, type, 24);
+        }
     };
 
     return (
@@ -107,7 +128,7 @@ const Stats = () => {
                     )}
                 </div>
                 <TimeRangeButtons
-                    activeButton={timeRange}
+                    defaultButton={timeRange}
                     handleClick={changeTimeRange}
                 />
             </div>
@@ -121,6 +142,7 @@ const Stats = () => {
                             (x) => x.name === timeRange
                         )[0].content
                     }
+                    handleClick={() => showMore('artists')}
                 />
                 <TopTrackList
                     topTrackData={
@@ -131,6 +153,7 @@ const Stats = () => {
                             (x) => x.name === timeRange
                         )[0].content
                     }
+                    handleClick={() => showMore('tracks')}
                 />
                 <RecentlyPlayedList />
             </div>

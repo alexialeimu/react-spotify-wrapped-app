@@ -9,7 +9,6 @@ const RecentlyPlayedList = () => {
             axios
                 .get('http://localhost:8000/stats/recently-played')
                 .then((res) => {
-                    console.log(res.data);
                     setRecentlyPlayedData(res.data);
                 })
                 .catch(function (error) {
@@ -19,18 +18,17 @@ const RecentlyPlayedList = () => {
         getRecentlyPlayed();
     }, []);
 
-    // recentlyPlayedData && console.log(recentlyPlayedData.items);
-
     return (
         <div className="space-y-8 text-left">
             <h3>Recently Played</h3>
             <div>
                 {recentlyPlayedData &&
-                    recentlyPlayedData.items.map((track) => (
-                        <RecentlyPlayedTrack trackData={track} />
+                    recentlyPlayedData.items.map((track, i) => (
+                        <RecentlyPlayedTrack
+                            key={i}
+                            trackData={track}
+                        />
                     ))}
-                {/* <RecentlyPlayedTrack /> */}
-                {/* <p>{JSON.stringify(recentlyPlayedData)}</p> */}
             </div>
         </div>
     );

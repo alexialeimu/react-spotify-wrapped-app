@@ -1,9 +1,6 @@
 import React from 'react';
 
 const Track = (props) => {
-    // const artists = props.artists
-    //     .map((artist) => artist.name)
-    //     .join(', ');
     const imageUrl = props.album_imgs[0].url;
 
     return (

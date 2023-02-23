@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Artist from './Artist';
+import Button from './Button';
 
-const TopArtistList = ({ topArtistData }) => {
+const TopArtistList = ({ topArtistData, handleClick }) => {
     const artists = topArtistData
         ? topArtistData.map((artist, i) => (
               <Artist
@@ -20,6 +21,8 @@ const TopArtistList = ({ topArtistData }) => {
             <div className="flex flex-wrap justify-around gap-y-8 gap-x-4">
                 {artists}
             </div>
+
+            <Button handleClick={handleClick} />
         </div>
     );
 };

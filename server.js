@@ -93,7 +93,7 @@ app.get('/callback', async (req, res) => {
 });
 
 /*
- *   Making sure the server is running and working
+ *   Make sure the server is running and working
  */
 app.get('/message', (req, res) => {
     res.json({ message: 'Hello from server!' });
@@ -113,7 +113,6 @@ app.get('/user', async (req, res) => {
                 },
             }
         );
-        // console.log(response.data);
         user = response.data;
     } catch (err) {
         console.error(err.message);
@@ -139,8 +138,6 @@ app.get('/stats/top', async (req, res) => {
                 },
             }
         );
-        // console.log(response.data.items);
-        // res.json({ data: response.data.items });
         res.json(response.data);
     } catch (error) {
         if (error.response) {
@@ -160,7 +157,7 @@ app.get('/stats/top', async (req, res) => {
 app.get('/stats/recently-played', async (req, res) => {
     try {
         const timeStamp = Math.floor(Date.now());
-        const limit = '10';
+        const limit = '20';
         const response = await axios.get(
             `https://api.spotify.com/v1/me/player/recently-played?before=${timeStamp}&limit=${limit}`,
             {
