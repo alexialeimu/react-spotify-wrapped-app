@@ -31,7 +31,7 @@ const Stats = () => {
     }, [timeRange]);
 
     const getUserData = () => {
-        fetch('http://localhost:8000/stats/user')
+        fetch('http://localhost:8000/user')
             .then((res) => res.json())
             .then((data) => {
                 setUserData(data.user);

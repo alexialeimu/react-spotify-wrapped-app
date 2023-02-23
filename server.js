@@ -22,28 +22,6 @@ let redirect_uri = process.env.REDIRECT_URI;
 let access_token = '';
 let user;
 
-app.get('/message', (req, res) => {
-    res.json({ message: 'Hello from server!' });
-});
-
-app.get('/stats/user', async (req, res) => {
-    try {
-        const response = await axios.get(
-            `https://api.spotify.com/v1/me`,
-            {
-                headers: {
-                    Authorization: `Bearer ${access_token}`,
-                },
-            }
-        );
-        console.log(response.data);
-        user = response.data;
-    } catch (err) {
-        console.error(err.message);
-    }
-    res.json({ user: user });
-});
-
 // Generates a random string containing numbers and letters
 var generateRandomString = function (length) {
     var text = '';
@@ -109,9 +87,38 @@ app.get('/callback', async (req, res) => {
     return res.redirect('http://localhost:3000/');
 });
 
+/*
+ *   Making sure the server is running and working
+ */
+app.get('/message', (req, res) => {
+    res.json({ message: 'Hello from server!' });
+});
+
+/*
+ *  Get current user's profile
+ *  More info: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
+ */
+app.get('/user', async (req, res) => {
+    try {
+        const response = await axios.get(
+            `https://api.spotify.com/v1/me`,
+            {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            }
+        );
+        console.log(response.data);
+        user = response.data;
+    } catch (err) {
+        console.error(err.message);
+    }
+    res.json({ user: user });
+});
+
 /**
- *  Get top list.
- *  More info: https://developer.spotify.com/console/get-current-user-top-artists-and-tracks/
+ *  Get user's top items
+ *  More info: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
  */
 app.get('/stats/top', async (req, res) => {
     const timeRange = req.query.timeRange;
