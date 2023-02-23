@@ -17,7 +17,9 @@ const TopArtistList = ({ topArtistData }) => {
         <div className="space-y-8">
             <h3 className="text-left">Top Artists</h3>
 
-            <div className="flex justify-between">{artists}</div>
+            <div className="flex flex-wrap justify-around gap-y-8 gap-x-4">
+                {artists}
+            </div>
         </div>
     );
 };

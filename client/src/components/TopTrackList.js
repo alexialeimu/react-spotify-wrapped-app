@@ -18,7 +18,9 @@ const TopTrackList = ({ topTrackData }) => {
         <div className="space-y-8">
             <h3 className="text-left">Top Tracks</h3>
 
-            <div className="flex space-x-8">{tracks}</div>
+            <div className="flex flex-wrap justify-around gap-y-8 gap-x-4">
+                {tracks}
+            </div>
         </div>
     );
 };
