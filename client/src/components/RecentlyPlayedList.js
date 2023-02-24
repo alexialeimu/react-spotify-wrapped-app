@@ -22,13 +22,14 @@ const RecentlyPlayedList = () => {
         <div className="space-y-8 text-left">
             <h3>Recently Played</h3>
             <div>
-                {recentlyPlayedData &&
-                    recentlyPlayedData.items.map((track, i) => (
-                        <RecentlyPlayedTrack
-                            key={i}
-                            trackData={track}
-                        />
-                    ))}
+                {recentlyPlayedData
+                    ? recentlyPlayedData.items.map((track, i) => (
+                          <RecentlyPlayedTrack
+                              key={i}
+                              trackData={track}
+                          />
+                      ))
+                    : 'No data to show'}
             </div>
         </div>
     );

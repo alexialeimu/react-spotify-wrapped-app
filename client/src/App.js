@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Stats from './components/Stats';
 import './App.css';
-
-// pages
 import Home from './pages/Home';
 
 function App() {
@@ -26,7 +24,7 @@ function App() {
         <BrowserRouter>
             <div className="App app-container">
                 <Navbar />
-                <main className="mt-16">
+                <main className="my-16">
                     <div className="layout">
                         <Routes>
                             <Route

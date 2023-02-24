@@ -18,11 +18,15 @@ const TopArtistList = ({ topArtistData, handleClick }) => {
         <div className="space-y-8">
             <h3 className="text-left">Top Artists</h3>
 
-            <div className="flex flex-wrap justify-around gap-y-8 gap-x-4">
-                {artists}
+            <div className="flex flex-wrap justify-start gap-y-8 gap-x-4">
+                {topArtistData.length > 0
+                    ? artists
+                    : 'No artists to show.'}
             </div>
 
-            <Button handleClick={handleClick} />
+            {topArtistData.length > 0 && (
+                <Button handleClick={handleClick} />
+            )}
         </div>
     );
 };
